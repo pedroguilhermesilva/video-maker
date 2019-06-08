@@ -1,4 +1,4 @@
-const readline = require('readline-sync')
+const readline = require('readline-sync') //lib for questions, options and choose option
 const robots = {
     text: require('./robots/text.js')
 }
@@ -9,7 +9,7 @@ async function start() {
     content.prefix = askAndReturnPrefix()
 
     await robots.text(content)
-
+    
     function askAndReturnSearchTerm() {
         return readline.question('Term a Wikipedia search term: ')
     }
