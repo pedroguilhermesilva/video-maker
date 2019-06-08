@@ -11,8 +11,8 @@ async function robot(content) {
     async function fecthContentFromWikipedia(content) {
         const algorithmiaAuthenticated = algorithmia(algorithmiaKey)
         const wikipediaAlgorithm = algorithmiaAuthenticated.algo('web/WikipediaParser/0.1.2')
-        const wikipediaResponde = await wikipediaAlgorithm.pipe(content.searchTerm)
-        const wikipediaContent = wikipediaResponde.get()
+        const wikipediaResponse = await wikipediaAlgorithm.pipe(content.searchTerm)
+        const wikipediaContent = wikipediaResponse.get()
 
         content.sourceContentOriginal = wikipediaContent.content
     }
