@@ -5,18 +5,25 @@ const sentenceBoundaryDetection = require('sbd') //lib to sentence boundary dete
 const watsonApiKey = require('../credentials/watson-nlu.json').apikey
 const NaturalLanguageUnderstandingV1 = require('ibm-watson/natural-language-understanding/v1.js')
 
-var nlu = new NaturalLanguageUnderstandingV1({
+const nlu = new NaturalLanguageUnderstandingV1({
     iam_apikey: watsonApiKey,
     version: '2018-04-05',
     url: 'https://gateway.watsonplatform.net/natural-language-understanding/api/'
   });
 
-async function robot(content) {
+const stage = require('./stage.js')
+
+async function robot() {
+    
+    const content = stage.load()
+    
     await fecthContentFromWikipedia(content)
     sanitizeContent(content)
     breakContentIntoSentences(content)
     limitMaximumSentence(content)
     await fetchKeywordsOfAllSentence(content)
+
+    stage.save(content)
 
     //User Algorithmia and search the term on Wikipidia
     async function fecthContentFromWikipedia(content) {
